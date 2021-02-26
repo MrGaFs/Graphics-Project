@@ -1,4 +1,6 @@
-# Collage-assignments
+# Graphics Project 
 
-## this Repositories I made to put the collage assignments
+> name: George Azmy Fawzy Shenoda
+> edu-email: jurj.euzmai313@fci.s-mu.edu.eg
+> year: Third year
 
