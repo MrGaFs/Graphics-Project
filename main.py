@@ -2,7 +2,6 @@
 #TODO: dont forget to uncomment the remaing algorithm
 from tkinter import *
 import tkinter.font as tkfont
-from PIL import ImageTk, Image
 # color applet
 background = '#222831'
 background2 = '#00adb5'
