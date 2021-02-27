@@ -8,9 +8,9 @@
 
 ## prerequisites
 
-*python3
+* python3
 
-*tkinter lib
+* tkinter lib
 
 ## run commands
 
