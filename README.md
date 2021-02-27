@@ -6,3 +6,17 @@
 
 > year: Third year
 
+## prerequisites
+
+*python3
+
+*tkinter lib
+
+## run commands
+
+### linux
+
+```sh
+make install 
+```
+
