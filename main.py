@@ -373,8 +373,129 @@ def fElipse():
 def fClipping():
 	root = Tk()
 	root.configure(bg=background)
-	main = Canvas(root, bg=foreground, height=500, width=500)
+	main = Canvas(root, bg=foreground, height=600, width=600)
+	main.grid(row=0, column=3, rowspan=11)
+	Label(root, text='x1', fg=foreground,
+            bg=background).grid(row=1, column=1)
+	Label(root, text='y1', fg=foreground,
+            bg=background).grid(row=2, column=1)
+	Label(root, text='x2', fg=foreground,
+            bg=background).grid(row=3, column=1)
+	Label(root, text='y2', fg=foreground,
+            bg=background).grid(row=4, column=1)
+	Label(root, text='xMin', fg=foreground,
+            bg=background).grid(row=5, column=1)
+	Label(root, text='yMin', fg=foreground,
+            bg=background).grid(row=6, column=1)
+	Label(root, text='xMax', fg=foreground,
+            bg=background).grid(row=7, column=1)
+	Label(root, text='yMax', fg=foreground,
+            bg=background).grid(row=8, column=1)
+	xe1 = Entry(root)
+	xe1.grid(row=1, column=2)
+	ye1 = Entry(root)
+	ye1.grid(row=2, column=2)
+	xe2 = Entry(root)
+	xe2.grid(row=3, column=2)
+	ye2 = Entry(root)
+	ye2.grid(row=4, column=2)
+	xmne = Entry(root)
+	xmne.grid(row=5, column=2)
+	ymne = Entry(root)
+	ymne.grid(row=6, column=2)
+	xmxe = Entry(root)
+	xmxe.grid(row=7, column=2)
+	ymxe = Entry(root)
+	ymxe.grid(row=8, column=2)
+	def __draw(x1 :int , x2 : int , y1 :int , y2:int):
+		_dda(main, x1 , x2 , y1 ,y2)
+	x1 = 0
+	y1 = 0
+	x2 = 0
+	y2 = 0
+	xmin = 0
+	ymin = 0
+	xmax = 0
+	ymax = 0
+	LEFT = 1
+	RIGHT = 2
+	BOTTOM = 4
+	TOP = 8
+	def _computeCode(x: float, y: float):
+		code = 0 
+		if x < xmin:
+			code |= LEFT
+		elif x > xmax:
+			code|=RIGHT
+		elif y < ymin:
+			code|= TOP
+		return code
 
+	def _clip():
+		x1 = int(xe1.get())
+		y1 = int(ye1.get())
+		x2 = int(xe2.get())
+		y2 = int(ye2.get())
+		__draw(x1,x2,y1,y2)
+		code1 = _computeCode(x1, y1)
+		code2 = _computeCode(x2, y2)
+		flag = False
+		while True:
+			if code1 & code2 != 0:
+				break
+			if code1 | code2 == 0:
+				flag = True
+			code = 0
+			if code1 != 0:
+				code = code1
+			else:
+				code = code2
+			clippx = 0
+			clippy = 0
+			if (code & TOP) != 0:
+				clippx = (((ymax - y1) * (x2 - x1)) / (y2 - y1)) + x1
+				clippy = ymax
+			elif (code & BOTTOM) != 0:
+				clippx = (((ymin - y1) * (x2 - x1)) / (y2 - y1)) + x1
+				clippy = ymin
+			elif (code & LEFT) != 0:
+				clippy = (((xmin - x1) * (y2 - y1)) / (x2 - x1)) + y1
+				clippx = xmin
+
+			elif code & RIGHT != 0:
+				clippy = (((xmax - x1) * (y2 - y1)) / (x2 - x1)) + x1
+				clippx = xmax
+
+			if code == code1:
+				x1 = clippx
+				y1 = clippy
+				code1 = _computeCode(x1, y1)
+			elif code == code2:
+				x2 = clippx
+				y2 = clippy
+				code2 = _computeCode(x2, y2)
+
+		return flag
+	def _line():
+		x1 = int(xe1.get())
+		y1 = int(ye1.get())
+		x2 = int(xe2.get())
+		y2 = int(ye2.get())
+		__draw(x1,x2,y1,y2)
+	def _area():
+		x1 = int(xe1.get())
+		y1 = int(ye1.get())
+		x2 = int(xe2.get())
+		y2 = int(ye2.get())
+		xmin = int(xmne.get())
+		ymin = int(ymne.get())
+		xmax = int(xmxe.get())
+		ymax = int(ymxe.get())
+		if _clip():
+			__draw(int(x1), int(x2), int(y1), int(y2))
+	
+	draw = Button(root, text='Line',  command=_line).grid( row=9, column=1, columnspan=1)
+	draw = Button(root, text='Area',  command=_area).grid( row=9, column=2, columnspan=1)
 	root.title('Clippping')
 	root.mainloop()
 # main Function
