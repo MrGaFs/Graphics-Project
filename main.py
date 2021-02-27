@@ -11,7 +11,7 @@ foreground2 = '#393e46'
 # dda function
 
 
-def put_pexil(x: int, y: int, main: Canvas):
+def putPexil(x: int, y: int, main: Canvas):
 	main.create_rectangle(x, y, x+1, y+1)
 
 
@@ -24,22 +24,24 @@ def _dda(main: Canvas, x1: int, x2: int, y1: int, y2: int):
 	for i in range(steps):
 		x1 += Xinc
 		y1 += Yinc
-		put_pexil(round(x1), round(y1), main)
+		putPexil(round(x1), round(y1), main)
 
 # dda line drawing function
+
+
 def fDda():
 	root = Tk()
 	root.configure(bg=background)
 	main = Canvas(root, bg=foreground, height=500, width=500)
 	main.grid(row=0, column=3, rowspan=7)
 	Label(root, text='x1 value', fg=foreground,
-		  bg=background).grid(row=1, column=1)
+            bg=background).grid(row=1, column=1)
 	Label(root, text='y1 value', fg=foreground,
-		  bg=background).grid(row=2, column=1)
+            bg=background).grid(row=2, column=1)
 	Label(root, text='x2 value', fg=foreground,
-		  bg=background).grid(row=3, column=1)
+            bg=background).grid(row=3, column=1)
 	Label(root, text='y2 value', fg=foreground,
-		  bg=background).grid(row=4, column=1)
+            bg=background).grid(row=4, column=1)
 	xe1 = Entry(root)
 	xe1.grid(row=1, column=2)
 	ye1 = Entry(root)
@@ -54,19 +56,21 @@ def fDda():
 	root.mainloop()
 
 # dda square drawing
+
+
 def fDdasqr():
 	root = Tk()
 	root.configure(bg=background)
 	main = Canvas(root, bg=foreground, height=500, width=500)
 	main.grid(row=0, column=3, rowspan=7)
 	Label(root, text='x1 value', fg=foreground,
-		  bg=background).grid(row=1, column=1)
+            bg=background).grid(row=1, column=1)
 	Label(root, text='y1 value', fg=foreground,
-		  bg=background).grid(row=2, column=1)
+            bg=background).grid(row=2, column=1)
 	Label(root, text='x2 value', fg=foreground,
-		  bg=background).grid(row=3, column=1)
+            bg=background).grid(row=3, column=1)
 	Label(root, text='y2 value', fg=foreground,
-		  bg=background).grid(row=4, column=1)
+            bg=background).grid(row=4, column=1)
 	xe1 = Entry(root)
 	xe1.grid(row=1, column=2)
 	ye1 = Entry(root)
@@ -75,19 +79,23 @@ def fDdasqr():
 	xe2.grid(row=3, column=2)
 	ye2 = Entry(root)
 	ye2.grid(row=4, column=2)
-	def __ddasqr(): 
-		x1=int(xe1.get())
-		x2=int(xe2.get())
-		y1=int(ye1.get())
-		y2=int(ye2.get())
+
+	def __ddasqr():
+		x1 = int(xe1.get())
+		x2 = int(xe2.get())
+		y1 = int(ye1.get())
+		y2 = int(ye2.get())
 		_dda(main, x1, x2, y1, y1)
 		_dda(main, x1, x1, y1, y2)
 		_dda(main, x1, x2, y2, y2)
 		_dda(main, x2, x2, y1, y2)
 
-	submit = Button(root, text='Run',  command=__ddasqr).grid(row=5, column=1, columnspan=2)
+	submit = Button(root, text='Run',  command=__ddasqr).grid(
+		row=5, column=1, columnspan=2)
 	root.title('DDA Square')
 	root.mainloop()
+
+#Bresenham drwing lines alghorithm
 
 
 def fbresnham():
@@ -96,13 +104,13 @@ def fbresnham():
 	main = Canvas(root, bg=foreground, height=500, width=500)
 	main.grid(row=0, column=3, rowspan=7)
 	Label(root, text='x1 value', fg=foreground,
-		  bg=background).grid(row=1, column=1)
+            bg=background).grid(row=1, column=1)
 	Label(root, text='y1 value', fg=foreground,
-		  bg=background).grid(row=2, column=1)
+            bg=background).grid(row=2, column=1)
 	Label(root, text='x2 value', fg=foreground,
-		  bg=background).grid(row=3, column=1)
+            bg=background).grid(row=3, column=1)
 	Label(root, text='y2 value', fg=foreground,
-		  bg=background).grid(row=4, column=1)
+            bg=background).grid(row=4, column=1)
 	xe1 = Entry(root)
 	xe1.grid(row=1, column=2)
 	ye1 = Entry(root)
@@ -111,6 +119,7 @@ def fbresnham():
 	xe2.grid(row=3, column=2)
 	ye2 = Entry(root)
 	ye2.grid(row=4, column=2)
+
 	def __bresnham():
 		x = int(xe1.get())
 		x2 = int(xe2.get())
@@ -120,15 +129,16 @@ def fbresnham():
 		dy = y2 - y
 		p = (2*dx) - dy
 		while x <= x2:
-			put_pexil(x, y, main)
+			putPexil(x, y, main)
 			x += 1
-			if p<0:
+			if p < 0:
 				p = p + (2 * dy)
 			else:
-				y+=1
+				y += 1
 				p = p + (2*dy) - (2*dx)
 
-	submit = Button(root, text='Run',  command = __bresnham ).grid(row=5, column=1, columnspan=2)
+	submit = Button(root, text='Run',  command=__bresnham).grid(
+		row=5, column=1, columnspan=2)
 
 	root.title('Bersnham')
 	root.mainloop()
@@ -138,7 +148,45 @@ def fCircle():
 	root = Tk()
 	root.configure(bg=background)
 	main = Canvas(root, bg=foreground, height=500, width=500)
+	main.grid(row=0, column=3, rowspan=6)
+	Label(root, text='x value of the center', fg=foreground,
+            bg=background).grid(row=1, column=1)
+	Label(root, text='y value of the center', fg=foreground,
+            bg=background).grid(row=2, column=1)
+	Label(root, text='raduis value', fg=foreground,
+            bg=background).grid(row=3, column=1)
+	xe = Entry(root)
+	xe.grid(row=1, column=2)
+	ye = Entry(root)
+	ye.grid(row=2, column=2)
+	re = Entry(root)
+	re.grid(row=3, column=2)
 
+	def __circle():
+		x = int(re.get())
+		xc = int(xe.get())
+		yc = int(ye.get())
+		putPexil(xc, yc, main)
+		p = 1-x
+		y = 0
+		while x >= y:
+			putPexil(xc + x, yc+y, main)
+			putPexil(xc + y, yc+x, main)
+			putPexil(xc + x, yc-y, main)
+			putPexil(xc + y, yc-x, main)
+			putPexil(xc - x, yc+y, main)
+			putPexil(xc - y, yc+x, main)
+			putPexil(xc - x, yc-y, main)
+			putPexil(xc - y, yc-x, main)
+			if p <= 0:
+				y += 1
+				p = p + 2 * y + 1
+			if p > 0:
+				y += 1
+				x -= 1
+				p = p + 2 * y - 2 * x + 1
+	submit = Button(root, text='Run',  command=__circle).grid(
+		row=4, column=1, columnspan=2)
 	root.title('Circle')
 	root.mainloop()
 
@@ -156,7 +204,63 @@ def fElipse():
 	root = Tk()
 	root.configure(bg=background)
 	main = Canvas(root, bg=foreground, height=500, width=500)
+	main.grid(row=0, column=3, rowspan=7)
+	Label(root, text='x value of the center', fg=foreground,
+            bg=background).grid(row=1, column=1)
+	Label(root, text='y value of the center', fg=foreground,
+            bg=background).grid(row=2, column=1)
+	Label(root, text='x raduis value', fg=foreground,
+            bg=background).grid(row=3, column=1)
+	Label(root, text='y raduis value', fg=foreground,
+            bg=background).grid(row=4, column=1)
+	xe = Entry(root)
+	xe.grid(row=1, column=2)
+	ye = Entry(root)
+	ye.grid(row=2, column=2)
+	xre = Entry(root)
+	xre.grid(row=3, column=2)
+	yre = Entry(root)
+	yre.grid(row=4, column=2)
 
+	def __draw(x:int , y:int , x1: int, y1: int):
+		putPexil(x + x1, y + y1, main)
+		putPexil(x + x1, y - y1, main)
+		putPexil(x - x1, y + y1, main)
+		putPexil(x - x1, y - y1, main)
+
+	def __ellipse():
+		xc = int(xe.get())
+		yc = int(ye.get())
+		rx = int(xre.get())
+		ry = int(yre.get())
+		x = 0
+		y = ry
+		p = int((ry ** 2) - (ry * (rx ** 2)) + ((rx ** 2) * .25))
+		dx = 2 * (ry ** 2) * x
+		dy = 2 * (rx ** 2) * y
+		while dx < dy:
+			__draw(xc, yc, x, y)
+			x += 1
+			dx += (2 * (ry ** 2))
+			if p >= 0:
+				y -= 1
+				p += (dx - dy + (ry ** 2))
+				dy -= (2 * (rx ** 2))
+			else:
+				p += (dx + (ry **2 ))
+		p = int(((ry ** 2) * (x + .5) * (x + .5)) +
+		        ((rx ** 2) * ((y - 1) ** 2) - ((rx ** 2) * (ry ** 2))))
+		while y>=0:
+			__draw(xc , yc , x, y)
+			y-=1
+			dy -= (2 * (rx ** 2))
+			if p>=0:
+				p += (- dy + (rx ** 2))
+			else:
+				x += 1
+				dx += (2 * (ry ** 2))
+				p += (dx - dy + (rx ** 2))
+	submit = Button(root, text='Run',  command=__ellipse).grid( row=5, column=1, columnspan=2)
 	root.title('Elipse')
 	root.mainloop()
 
@@ -177,30 +281,30 @@ def main():
 	root.title('Graphics Project')
 	myFont = tkfont.Font(family='JetBrains Mono', size=20)
 	main = Label(root, text='Please choose one of the following to start',
-				 font=myFont, fg=foreground, bg=background)
+              font=myFont, fg=foreground, bg=background)
 # make the buttons
 	dda = Button(root, font=myFont, bg=background2,
-				 fg=foreground2, text='DDA', padx=100, pady=10, command=fDda)
+              fg=foreground2, text='DDA', padx=100, pady=10, command=fDda)
 	ddaSqr = Button(root, font=myFont, bg=background2,
-					fg=foreground2, text='DDA Square', padx=100, pady=10, command=fDdasqr)
+                 fg=foreground2, text='DDA Square', padx=100, pady=10, command=fDdasqr)
 	bres = Button(root, font=myFont, bg=background2,
-				  fg=foreground2, text='bresnham', padx=100, pady=10, command=fbresnham)
+               fg=foreground2, text='bresnham', padx=100, pady=10, command=fbresnham)
 	circle = Button(root, font=myFont, bg=background2,
-					fg=foreground2, text='Circle', padx=100, pady=10, command=fCircle)
+                 fg=foreground2, text='Circle', padx=100, pady=10, command=fCircle)
 	trans = Button(root, font=myFont, bg=background2, fg=foreground2,
-				   text='Transformation', padx=100, pady=10, command=fTransformation)
+                text='Transformation', padx=100, pady=10, command=fTransformation)
 	elipse = Button(root, font=myFont, bg=background2,
-					fg=foreground2, text='Elipse', padx=100, pady=10, command=fElipse)
+                 fg=foreground2, text='Elipse', padx=100, pady=10, command=fElipse)
 	clipping = Button(root, font=myFont, bg=background2,
-					  fg=foreground2, text='Clipping', padx=100, pady=10, command=fClipping)
+                   fg=foreground2, text='Clipping', padx=100, pady=10, command=fClipping)
 
 	dda.grid(row=1, column=0)
 	ddaSqr.grid(row=1, column=1)
 	bres.grid(row=1, column=2)
 
-	# circle.grid(row=2, column=0)
+	circle.grid(row=2, column=0)
 	# trans.grid(row=2, column=1)
-	# elipse.grid(row=2, column=2)
+	elipse.grid(row=2, column=2)
 
 	# clipping.grid(row=3, column=1)
 
