@@ -17,6 +17,6 @@
 ### linux
 
 ```sh
-make install 
+make run 
 ```
 
