@@ -1,5 +1,4 @@
 #!/bin/python3
-#TODO: dont forget to uncomment the remaing algorithm
 from tkinter import *
 import tkinter.font as tkfont
 # color applet
@@ -143,7 +142,7 @@ def fbresnham():
 	root.title('Bersnham')
 	root.mainloop()
 
-
+# the function to draw a circle
 def fCircle():
 	root = Tk()
 	root.configure(bg=background)
@@ -194,11 +193,110 @@ def fCircle():
 def fTransformation():
 	root = Tk()
 	root.configure(bg=background)
-	main = Canvas(root, bg=foreground, height=500, width=500)
+	main = Canvas(root, bg=foreground, height=600, width=600)
+	main.grid(row=0, column=3, rowspan=12)
+	Label(root, text='x1', fg=foreground,
+            bg=background).grid(row=1, column=1)
+	Label(root, text='y1', fg=foreground,
+            bg=background).grid(row=2, column=1)
+	Label(root, text='x2', fg=foreground,
+            bg=background).grid(row=3, column=1)
+	Label(root, text='y2', fg=foreground,
+            bg=background).grid(row=4, column=1)
+	Label(root, text='sx', fg=foreground,
+            bg=background).grid(row=5, column=1)
+	Label(root, text='sy', fg=foreground,
+            bg=background).grid(row=6, column=1)
+	Label(root, text='tx', fg=foreground,
+            bg=background).grid(row=7, column=1)
+	Label(root, text='ty', fg=foreground,
+            bg=background).grid(row=8, column=1)
+	xe1 = Entry(root)
+	xe1.grid(row=1, column=2)
+	ye1 = Entry(root)
+	ye1.grid(row=2, column=2)
+	xe2 = Entry(root)
+	xe2.grid(row=3, column=2)
+	ye2 = Entry(root)
+	ye2.grid(row=4, column=2)
+	sxe = Entry(root)
+	sxe.grid(row=5, column=2)
+	sye = Entry(root)
+	sye.grid(row=6, column=2)
+	txe = Entry(root)
+	txe.grid(row=7, column=2)
+	tye = Entry(root)
+	tye.grid(row=8, column=2)
 
+	def _draw():
+		x1 = int(xe1.get())
+		x2 = int(xe2.get())
+		y1 = int(ye1.get())
+		y2 = int(ye2.get())
+		_dda(main, x1, x2, y1, y1)
+		_dda(main, x1, x1, y1, y2)
+		_dda(main, x1, x2, y2, y2)
+		_dda(main, x2, x2, y1, y2)
+
+	def _scale():
+		x1 = int(xe1.get())
+		y1 = int(ye1.get())
+		x2 = int(xe2.get())
+		y2 = int(ye2.get())
+		sx = int(sxe.get())
+		sy = int(sye.get())
+		x2 *= sx
+		y2 *= sy
+		_dda(main, x1, x2, y1, y1)
+		_dda(main, x1, x1, y1, y2)
+		_dda(main, x1, x2, y2, y2)
+		_dda(main, x2, x2, y1, y2)
+	
+	def _trans():
+		x1 = int(xe1.get())
+		y1 = int(ye1.get())
+		x2 = int(xe2.get())
+		y2 = int(ye2.get())
+		tx = int(txe.get())
+		ty = int(tye.get())
+		x1 += tx
+		x2 += tx
+		y1 += ty
+		y2 += ty
+		_dda(main, x1, x2, y1, y1)
+		_dda(main, x1, x1, y1, y2)
+		_dda(main, x1, x2, y2, y2)
+		_dda(main, x2, x2, y1, y2)
+	def _reflx():
+		x1 = int(xe1.get())
+		y1 = - int(ye1.get())
+		x2 = int(xe2.get())
+		y2 = - int(ye2.get())
+		putPexil(300, 300, main)
+		_dda(main, x1, x2, y1, y1)
+		_dda(main, x1, x1, y1, y2)
+		_dda(main, x1, x2, y2, y2)
+		_dda(main, x2, x2, y1, y2)
+
+	def _refly():
+		x1 = - int(xe1.get())
+		y1 = int(ye1.get())
+		x2 = - int(xe2.get())
+		y2 = int(ye2.get())
+		_dda(main, x1, x2, y1, y1)
+		_dda(main, x1, x1, y1, y2)
+		_dda(main, x1, x2, y2, y2)
+		_dda(main, x2, x2, y1, y2)
+
+	draw = Button(root, text='Draw',  command=_draw).grid( row=9, column=1, columnspan=1)
+	draw = Button(root, text='Scale',  command=_scale).grid( row=9, column=2, columnspan=1)
+	draw = Button(root, text='translate',  command=_trans).grid( row=10, column=1, columnspan=1)
+	draw = Button(root, text='reflx',  command=_reflx).grid( row=10, column=2, columnspan=1)
+	draw = Button(root, text='refly',  command=_refly).grid( row=11, column=1, columnspan=2)
 	root.title('Transformation')
 	root.mainloop()
 
+# A function to draw ellipse
 
 def fElipse():
 	root = Tk()
@@ -282,7 +380,7 @@ def main():
 	myFont = tkfont.Font(family='JetBrains Mono', size=20)
 	main = Label(root, text='Please choose one of the following to start',
               font=myFont, fg=foreground, bg=background)
-# make the buttons
+	# make the buttons
 	dda = Button(root, font=myFont, bg=background2,
               fg=foreground2, text='DDA', padx=100, pady=10, command=fDda)
 	ddaSqr = Button(root, font=myFont, bg=background2,
@@ -303,15 +401,15 @@ def main():
 	bres.grid(row=1, column=2)
 
 	circle.grid(row=2, column=0)
-	# trans.grid(row=2, column=1)
+	trans.grid(row=2, column=1)
 	elipse.grid(row=2, column=2)
 
-	# clipping.grid(row=3, column=1)
+	clipping.grid(row=3, column=1)
 
 	main.grid(row=0, column=0, columnspan=3)
 	root.mainloop()
 
 
-#
+# Running the main Function
 if __name__ == '__main__':
 	main()
