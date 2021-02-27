@@ -227,16 +227,22 @@ def fTransformation():
 	txe.grid(row=7, column=2)
 	tye = Entry(root)
 	tye.grid(row=8, column=2)
+	def __draw(x1 :int , x2 : int , y1 :int , y2:int):
+		x1 += 300
+		x2 += 300
+		y1 += 300
+		y2 += 300
+		_dda(main, x1 , x2 , y1 ,y2)
 
 	def _draw():
 		x1 = int(xe1.get())
 		x2 = int(xe2.get())
 		y1 = int(ye1.get())
 		y2 = int(ye2.get())
-		_dda(main, x1, x2, y1, y1)
-		_dda(main, x1, x1, y1, y2)
-		_dda(main, x1, x2, y2, y2)
-		_dda(main, x2, x2, y1, y2)
+		__draw(x1, x2, y1, y1)
+		__draw(x1, x1, y1, y2)
+		__draw(x1, x2, y2, y2)
+		__draw(x2, x2, y1, y2)
 
 	def _scale():
 		x1 = int(xe1.get())
@@ -245,12 +251,12 @@ def fTransformation():
 		y2 = int(ye2.get())
 		sx = int(sxe.get())
 		sy = int(sye.get())
-		x2 *= sx
-		y2 *= sy
-		_dda(main, x1, x2, y1, y1)
-		_dda(main, x1, x1, y1, y2)
-		_dda(main, x1, x2, y2, y2)
-		_dda(main, x2, x2, y1, y2)
+		x2 += ((sx-1) * abs(x2 - x1))
+		y2 += ((sy-1) * abs(y2 - y1))
+		__draw(x1, x2, y1, y1)
+		__draw(x1, x1, y1, y2)
+		__draw(x1, x2, y2, y2)
+		__draw(x2, x2, y1, y2)
 	
 	def _trans():
 		x1 = int(xe1.get())
@@ -263,31 +269,32 @@ def fTransformation():
 		x2 += tx
 		y1 += ty
 		y2 += ty
-		_dda(main, x1, x2, y1, y1)
-		_dda(main, x1, x1, y1, y2)
-		_dda(main, x1, x2, y2, y2)
-		_dda(main, x2, x2, y1, y2)
+		__draw(x1, x2, y1, y1)
+		__draw(x1, x1, y1, y2)
+		__draw(x1, x2, y2, y2)
+		__draw(x2, x2, y1, y2)
 	def _reflx():
 		x1 = int(xe1.get())
 		y1 = - int(ye1.get())
 		x2 = int(xe2.get())
 		y2 = - int(ye2.get())
-		putPexil(300, 300, main)
-		_dda(main, x1, x2, y1, y1)
-		_dda(main, x1, x1, y1, y2)
-		_dda(main, x1, x2, y2, y2)
-		_dda(main, x2, x2, y1, y2)
+		__draw(x1, x2, y1, y1)
+		__draw(x1, x1, y1, y2)
+		__draw(x1, x2, y2, y2)
+		__draw(x2, x2, y1, y2)
 
 	def _refly():
 		x1 = - int(xe1.get())
 		y1 = int(ye1.get())
 		x2 = - int(xe2.get())
 		y2 = int(ye2.get())
-		_dda(main, x1, x2, y1, y1)
-		_dda(main, x1, x1, y1, y2)
-		_dda(main, x1, x2, y2, y2)
-		_dda(main, x2, x2, y1, y2)
+		__draw(x1, x2, y1, y1)
+		__draw(x1, x1, y1, y2)
+		__draw(x1, x2, y2, y2)
+		__draw(x2, x2, y1, y2)
 
+	_dda(main ,300,300,0,600)	
+	_dda(main ,0,600,300,300)	
 	draw = Button(root, text='Draw',  command=_draw).grid( row=9, column=1, columnspan=1)
 	draw = Button(root, text='Scale',  command=_scale).grid( row=9, column=2, columnspan=1)
 	draw = Button(root, text='translate',  command=_trans).grid( row=10, column=1, columnspan=1)
